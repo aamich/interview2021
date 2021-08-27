@@ -1,5 +1,4 @@
 /*
-
 We have a two-dimensional board game involving snakes.  The board has two types of squares on it: +'s represent impassable squares where snakes cannot go, and 0's represent squares through which snakes can move.  Snakes can only enter on the edges of the board, and each snake can move in only one direction.  We'd like to find the places where a snake can pass through the entire board, moving in a straight line.
 
 Here is an example board:
@@ -21,9 +20,6 @@ Complexity Analysis:
 
 r: number of rows in the board
 c: number of columns in the board
-
-
-
 
 snake_case version of the inputs and function calls:
 straight_board_1 = [['+', '+', '+', '0', '+', '0', '0'],
@@ -53,46 +49,15 @@ find_passable_lanes(straight_board_3) # = Rows: [1], Columns: []
 straight_board_4 = [['+']]
 
 find_passable_lanes(straight_board_4) # = Rows: [], Columns: []
-
-
-
-
-
 */
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <functional>
 
 using namespace std;
-
-vector<vector<int>> ways(const vector<vector<char>>& vv) {
-  vector<int> rows;
-  for(int r = 0; r < vv.size(); ++r) {
-    int sum = 0;
-    for(auto it : vv[r])
-      sum += it - '0';
-    if(sum == 0)
-      rows.push_back(r);
-  }
-  vector<int> cols;
-  int nc = vv[0].size();
-  for(int c = 0; c < nc; ++c) {
-    int  sum = 0;
-    for(int r = 0; r < vv.size(); ++ r)
-      sum += vv[r][c] - '0';
-    if(sum == 0)
-      cols.push_back(c);
-  }
-  
-  
-  vector<vector<int>> res;
-  res.push_back(rows);
-  res.push_back(cols);
-  return res;
-};
-
 
 int main() {
     vector<vector<char>> straightBoard1 = {
@@ -119,48 +84,40 @@ int main() {
   vector<vector<char>> straightBoard4 = { 
       {'+'}}; 
 
-  auto res = ways(straightBoard1);
+function<vector<vector<int>>(const vector<vector<char>>&)> 
+  ways=[](const vector<vector<char>>& vv)->vector<vector<int>> {
+  vector<int> rows;
+  for(int r = 0; r < vv.size(); ++r) {
+    int sum = 0;
+    for(auto it : vv[r])
+      sum += it - '0';
+    if(sum == 0)
+      rows.push_back(r);
+  }
   
-  
-  // find_passable_lanes(straight_board_1) # = Rows: [1], Columns: [3, 5]
-  cout << "Rows: [";
-  for(int i = 0; i < res[0].size(); ++i)
-    cout << res[0][i];
-  cout << "], Columns: [";
-  for(int i = 0; i < res[1].size(); ++i)
-    cout << res[1][i] << ",";
-  cout << "]";
-  cout << endl;
+  vector<int> cols;
+  int nc = vv[0].size();
+  for(int c = 0; c < nc; ++c) {
+    int  sum = 0;
+    for(int r = 0; r < vv.size(); ++ r)
+      sum += vv[r][c] - '0';
+    if(sum == 0)
+      cols.push_back(c);
+  }
 
-    res = ways(straightBoard2);
+  return {rows, cols};
+};
+  // find_passable_lanes(straight_board_1) # = Rows: [1], Columns: [3, 5]
+  for (const auto& it : {straightBoard1, straightBoard2, straightBoard3, straightBoard4}) {
+    auto res = ways(it);
     cout << "Rows: [";
-  for(int i = 0; i < res[0].size(); ++i)
-    cout << res[0][i];
-  cout << "], Columns: [";
-  for(int i = 0; i < res[1].size(); ++i)
-    cout << res[1][i] << ",";
-  cout << "]";  
-  cout << endl;
-  
-  res = ways(straightBoard3);
-    cout << "Rows: [";
-  for(int i = 0; i < res[0].size(); ++i)
-    cout << res[0][i];
-  cout << "], Columns: [";
-  for(int i = 0; i < res[1].size(); ++i)
-    cout << res[1][i] << ",";
-  cout << "]";
-  cout << endl;
-  
-  res = ways(straightBoard4);
-    cout << "Rows: [";
-  for(int i = 0; i < res[0].size(); ++i)
-    cout << res[0][i];
-  cout << "], Columns: [";
-  for(int i = 0; i < res[1].size(); ++i)
-    cout << res[1][i] << ",";
-  cout << "]";
-  
-  
+    for(auto& i : res[0])
+      cout << i << ",";
+    cout << "], Columns: [";
+    for(auto& i : res[1])
+      cout << i << ",";
+    cout << "]" << endl;
+  }
+
   return 0;
 }
