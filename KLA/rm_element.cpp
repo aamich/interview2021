@@ -23,12 +23,9 @@ public:
     int removeElement(vector<int>& nums, int val) {
         int l=0;
         int r=nums.size()-1;
-        int e=r;
-        
         while(l<=r) {
             if(nums[l] == val && nums[r]!= val)
                 swap(nums[l], nums[r]);
-
             if(nums[l] != val) ++l;
             if(nums[r] == val) --r;
         }
