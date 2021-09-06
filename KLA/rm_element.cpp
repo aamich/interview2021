@@ -26,8 +26,8 @@ public:
         while(l<=r) {
             if(nums[l] == val && nums[r]!= val)
                 swap(nums[l], nums[r]);
-            if(nums[l] != val) ++l;
-            if(nums[r] == val) --r;
+            while(nums[l] != val) ++l;
+            while(nums[r] == val) --r;
         }
         return r+1;
     }
