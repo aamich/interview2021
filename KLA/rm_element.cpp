@@ -23,25 +23,36 @@ public:
     int removeElement(vector<int>& nums, int val) {
         int l=0;
         int r=nums.size()-1;
-        int cnt = 0;
+        int e=r;
         
-        while(l<r) {
-            if(nums[l] == val && nums[r]!= val) {
+        while(l<=r) {
+            if(nums[l] == val && nums[r]!= val)
                 swap(nums[l], nums[r]);
-                ++cnt;
-            }
-            if(nums[l] != val)
-                ++l;
-            if(nums[r] == val)
-                --r;
+
+            if(nums[l] != val) ++l;
+            if(nums[r] == val) --r;
         }
-        return nums.size() - cnt;
+        return r+1;
     }
 };
 
+int main() {
+    vector<int> v0{3,2,2,3};
+    vector<int> v{0,1,2,2,3,0,4,2};
+    vector<int> v1{2,2,2,2,2};
+    vector<int> v2{1,3,4,5};
+    Solution s;
+    for(auto it : {v0, v, v1, v2}) {
+        int e = s.removeElement(it, 2);
+        cout << "new size: " << e << endl;
+        for(auto i : it)
+            cout << i << " ";
+        cout << endl;
+    }
+}
+
 /* from peter
 [0,1,2,2,3,0,4,2]
-
 l: 0
 r: 7
 */
