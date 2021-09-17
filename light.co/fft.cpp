@@ -4,8 +4,10 @@
  
 const double PI = 3.141592653589793238460;
  
-typedef std::complex<double> Complex;
-typedef std::valarray<Complex> CArray;
+//typedef std::complex<double> Complex;
+//typedef std::valarray<Complex> CArray;
+using Complex=std::complex<double>;
+using CArray=std::valarray<Complex>;
  
 // Cooley–Tukey FFT (in-place, divide-and-conquer)
 // Higher memory requirements and redundancy although more intuitive
