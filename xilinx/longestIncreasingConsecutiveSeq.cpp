@@ -19,8 +19,7 @@ int lis(const vector<int>& v) {
 	for(int i = 1; i < n; ++i) {
 		if(v[i] > v[i-1]) {
 			++cnt;
-			if (mc < cnt)
-				mc = cnt;
+			mc = max(mc, cnt);
 		}
 		else
 			cnt = 1;
@@ -31,4 +30,10 @@ int lis(const vector<int>& v) {
 int main() {
 	vector<int> v{3,2,5,6,4};
 	cout << lis(v) << endl;
+	vector<int> v2{3,2,5,6,7,8,1,2,3,4};
+	cout << lis(v2) << endl;
+	vector<int> v3{};
+	cout << lis(v3) << endl;
+	vector<int> v4{3};
+	cout << lis(v4) << endl;
 }
