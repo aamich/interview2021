@@ -17,12 +17,8 @@ int lis(const vector<int>& v) {
 	int cnt=1;
 	int n = v.size();
 	for(int i = 1; i < n; ++i) {
-		if(v[i] > v[i-1]) {
-			++cnt;
-			mc = max(mc, cnt);
-		}
-		else
-			cnt = 1;
+		cnt = v[i]>v[i-1]? cnt+1 : 1;
+		mc = max(mc, cnt);
 	}
 	return mc;
 }
