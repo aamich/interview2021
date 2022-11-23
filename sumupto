@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+vector<std::pair<int, int>> sumupto(const vector<int>& v, int s) {
+	unordered_map<int, int> m;
+	int n=v.size();
+	for(int i=0; i<n; ++i) {
+		m[v[i]]=i;
+	}
+	vector<std::pair<int, int>> ans;
+	for(int i=0; i < n; ++i) {
+		if(m.count(s-v[i]) && i !=m[s-v[i]] )
+			ans.emplace_back(i, m[s-v[i]]);
+	}
+	return ans;
+}
+
+int main() {
+	vector<int> v{0,1,2,3,4,5};
+	auto ans = sumupto(v, 5);
+	for(auto& it : ans)
+		cout << it.first << " " << it.second << endl;
+	cout << endl;
+	ans = sumupto(v, 4);
+	for(auto& it : ans)
+		cout << it.first << " " << it.second << endl;
+	cout << endl;
+}
